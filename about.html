@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTalkAI | About Us</title>
+  <style>
+    body {
+      background: rgb(128, 128, 255);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    p {
+      max-width: 700px;
+      margin: 0 auto 25px;
+      line-height: 1.6;
+    }
+    .about-box, .team-box, .contact-box {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px auto;
+      max-width: 700px;
+      transition: 0.3s;
+    }
+    .about-box:hover, .team-box:hover, .contact-box:hover {
+      background: rgb(102, 102, 255);
+      transform: scale(1.03);
+    }
+    .team-member {
+      margin: 10px 0;
+    }
+    .team-member h4 {
+      margin-bottom: 5px;
+    }
+    .contact-box button {
+      background: white;
+      color: #2563eb;
+      border: none;
+      border-radius: 25px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .contact-box button:hover {
+      background: #2563eb;
+      color: white;
+    }
+    button.back-btn {
+      margin-top: 40px;
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 8px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.back-btn:hover {
+      background: white;
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <h1> About SmartTalkAI</h1>
+
+  <div class="about-box">
+    <p><b>SmartTalkAI</b> is an AI-driven English Speaking Platform designed to help learners practice, evaluate, and improve their communication skills through real-time AI feedback.</p>
+    <p>Our mission is to make English fluency achievable for everyone — from students preparing for exams to professionals polishing their speaking confidence.</p>
+    <p>Powered by advanced speech analysis, tone detection, and machine learning, SmartTalkAI personalizes feedback to help you grow step by step.</p>
+  </div>
+
+  <div class="team-box">
+    <h2> Meet the Team</h2>
+    <div class="team-member">
+      <h4>Paulo</h4>
+      <p>Lead Developer & UI Designer — Responsible for front-end, backend integration, and creative design.</p>
+    </div>
+    <div class="team-member">
+      <h4>AI Module & Evaluation</h4>
+      <p>Developed by the SmartTalkAI Research Group, focusing on voice recognition, tone analysis, and feedback generation.</p>
+    </div>
+    <div class="team-member">
+      <h4>Support Contributors</h4>
+      <p>Handled database setup, documentation, and feature enhancement for the project.</p>
+    </div>
+  </div>
+
+  <div class="contact-box">
+    <h2>Contact the Developer</h2>
+    <p>Have a question, suggestion, or want to collaborate on improving SmartTalkAI?</p>
+    <button onclick="alert('You can reach us at: smarttalkai@gmail.com')">Contact via Email</button>
+  </div>
+
+  <p>© 2025 SmartTalkAI | All Rights Reserved</p>
+  <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+</body>
+</html>

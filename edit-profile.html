@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile | SmartTalkAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Global Styles ---------- */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e0f2fe, #ede9fe);
+      color: #1e293b;
+    }
+
+    header {
+      background: linear-gradient(120deg, #2563eb, #7c3aed);
+      color: white;
+      padding: 18px 30px;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---------- Layout ---------- */
+    .edit-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    @media (max-width: 850px) {
+      .edit-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2563eb;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #93c5fd;
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      transition: 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    /* ---------- Buttons ---------- */
+    .button-row {
+      grid-column: span 2;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 0 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .save-btn {
+      background: linear-gradient(120deg, #2563eb, #7c3aed);
+      color: white;
+    }
+
+    .save-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .cancel-btn {
+      background-color: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .cancel-btn:hover {
+      background-color: #cbd5e1;
+    }
+
+    /* ---------- Dark Mode Toggle ---------- */
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .dark-toggle input {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+
+    .dark-mode {
+      background: linear-gradient(135deg, #1e293b, #111827);
+      color: #f1f5f9;
+    }
+
+    .dark-mode .section {
+      background: #1e293b;
+      color: #f1f5f9;
+      border: 1px solid #334155;
+    }
+
+    .dark-mode input,
+    .dark-mode select,
+    .dark-mode textarea {
+      background: #334155;
+      color: #f1f5f9;
+      border: 1px solid #475569;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1> Edit Your Profile</h1>
+  </header>
+
+  <form id="editProfileForm" class="edit-wrapper">
+    <!-- LEFT COLUMN -->
+    <div class="section">
+      <h2> Basic Information</h2>
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name">
+
+      <label>Email ID</label>
+      <input type="email" id="email" placeholder="Enter your email">
+
+      <label>Bio / About Me</label>
+      <textarea id="bio" rows="3" placeholder="Write a short bio..."></textarea>
+
+      <label>Profile Picture</label>
+      <input type="file" id="profilePic" accept="image/*">
+
+      <h2> Professional Information</h2>
+      <label>Username / Handle</label>
+      <input type="text" id="username" placeholder="@paulo_ai">
+
+      <label>Phone Number</label>
+      <input type="text" id="phone" placeholder="+91 9876543210">
+
+      <label>Role / Occupation</label>
+      <input type="text" id="role" placeholder="Student, Developer, Designer...">
+
+      <label>Skills / Interests</label>
+      <input type="text" id="skills" placeholder="AI, UI Design, Python">
+
+      <label>Location / City</label>
+      <input type="text" id="location" placeholder="Bangalore, India">
+
+      <label>Social Links</label>
+      <input type="url" id="social" placeholder="LinkedIn / GitHub URL">
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="section">
+      <h2>Account & Preferences</h2>
+      <label>Date of Birth</label>
+      <input type="date" id="dob">
+
+      <label>Gender / Pronouns</label>
+      <select id="gender">
+        <option value="">Select...</option>
+        <option value="He/Him">He/Him</option>
+        <option value="She/Her">She/Her</option>
+        <option value="They/Them">They/Them</option>
+      </select>
+
+      <label>Change Password</label>
+      <input type="password" id="password" placeholder="New password">
+
+      <div class="dark-toggle">
+        <input type="checkbox" id="darkModeToggle">
+        <span>Enable Dark Mode</span>
+      </div>
+
+      <label>Notification Settings</label>
+      <select id="notifications">
+        <option value="enabled">Enable Notifications</option>
+        <option value="disabled">Disable Notifications</option>
+      </select>
+
+      <label>Account Visibility</label>
+      <select id="visibility">
+        <option value="public">Public</option>
+        <option value="private">Private</option>
+      </select>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="button-row">
+      <button type="button" class="cancel-btn" onclick="window.location.href='profile.html'">Cancel</button>
+      <button type="submit" class="save-btn">Save Changes</button>
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById("editProfileForm");
+
+    // Save profile data
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const profileData = {
+        name: name.value,
+        email: email.value,
+        bio: bio.value,
+        username: username.value,
+        phone: phone.value,
+        role: role.value,
+        skills: skills.value,
+        location: location.value,
+        social: social.value,
+        dob: dob.value,
+        gender: gender.value,
+        password: password.value,
+        notifications: notifications.value,
+        visibility: visibility.value,
+      };
+      localStorage.setItem("smartTalkUserProfile", JSON.stringify(profileData));
+      alert(" Profile updated successfully!");
+      window.location.href = "profile.html";
+    });
+
+    // Dark mode toggle
+    const darkToggle = document.getElementById("darkModeToggle");
+    darkToggle.addEventListener("change", function () {
+      document.body.classList.toggle("dark-mode", this.checked);
+    });
+  </script>
+</body>
+</html>
+

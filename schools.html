@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTalkAI | For Schools</title>
+  <style>
+    body {
+      background: rgb(128, 128, 255);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 20px; }
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+    .box {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px auto;
+      max-width: 700px;
+      transition: 0.3s;
+    }
+    .box:hover {
+      background: rgb(102, 102, 255);
+      transform: scale(1.03);
+    }
+    .box button {
+      background: white;
+      color: #2563eb;
+      border: none;
+      border-radius: 25px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .box button:hover {
+      background: #2563eb;
+      color: white;
+    }
+    button.back-btn {
+      margin-top: 40px;
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 8px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.back-btn:hover {
+      background: white;
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <h1> SmartTalkAI for Schools</h1>
+  <p>Integrate AI-driven English learning into classrooms and help students gain real-world communication confidence.</p>
+
+  <div class="box">
+    <h3> Student Speaking Labs</h3>
+    <p>Students can record, practice, and improve their English fluency using AI feedback and evaluation.</p>
+    <button onclick="window.location.href='record.html?mode=daily'">Try Student Lab</button>
+  </div>
+
+  <div class="box">
+    <h3> Teacher Dashboard</h3>
+    <p>Teachers can track class progress, view reports, and download session summaries instantly.</p>
+    <button onclick="window.location.href='profile.html'">View Dashboard</button>
+  </div>
+
+  <div class="box">
+    <h3> School Integration Program</h3>
+    <p>Partner with SmartTalkAI to bring AI learning into your institution’s communication curriculum.</p>
+    <button onclick="alert(' Contact us at smarttalkai@gmail.com for school partnership details!')">Get Partnership Info</button>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+</body>
+</html>
+

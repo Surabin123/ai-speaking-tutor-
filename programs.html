@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTalkAI | Progress Tracker</title>
+  <link rel="stylesheet" href="css/progress.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="progress-container">
+    <!-- Left: Calendar Heatmap -->
+    <div class="calendar-section">
+      <h3> Speaking Activity Calendar</h3>
+      <div id="calendarGrid"></div>
+    </div>
+
+    <!-- Right: Bar Graph -->
+    <div class="graph-section">
+      <h3> Monthly Progress Overview</h3>
+      <canvas id="progressChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Center Bottom: Daily Analytics -->
+  <div class="daily-performance">
+    <h3> Daily Performance Summary</h3>
+    <div class="stats-box">
+      <div><strong>Speech Efficiency:</strong> <span id="efficiency">0%</span></div>
+      <div><strong>Confidence Score:</strong> <span id="confidence">0%</span></div>
+      <div><strong>Filler Words:</strong> <span id="fillers">0%</span></div>
+      <div><strong>Speaking Time:</strong> <span id="time">0 min</span></div>
+      <div><strong>Sessions Completed:</strong> <span id="sessions">0</span></div>
+      <div><strong>Performance Badge:</strong> <span id="badge">Confident Speaker</span></div>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='profile.html'">← Back to Profile</button>
+
+  <script src="js/progress.js"></script>
+</body>
+</html>
+
+

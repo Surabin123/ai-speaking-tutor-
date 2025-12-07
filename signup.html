@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | SmartTalkAI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: rgb(128, 128, 255);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .signup-container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 350px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #2563eb;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #2563eb;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    .google-btn:hover {
+      background: #2563eb;
+      color: white;
+    }
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+    p {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Create Your Account </h2>
+    <form id="signupForm">
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Create Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <button class="google-btn" id="googleSignup">
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google icon">
+      Sign Up with Google
+    </button>
+
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Account created successfully! Redirecting to your profile...");
+      setTimeout(() => {
+        window.location.href = "profile.html";
+      }, 1000);
+    });
+
+    document.getElementById("googleSignup").addEventListener("click", function() {
+      alert("Signing up with Google...");
+      setTimeout(() => {
+        window.location.href = "profile.html";
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
+
+
+

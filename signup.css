@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: rgb(128, 128, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.signup-box {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+
+h2 {
+  color: #1e293b;
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+p {
+  color: #475569;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+label {
+  color: #334155;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.signup-btn {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 7px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-btn:hover {
+  background: #1d4ed8;
+}
+
+.divider {
+  margin: 10px 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  width: 40%;
+  height: 1px;
+  background: #cbd5e1;
+  top: 50%;
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.social-signup button {
+  background: #ea4335;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 7px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.social-signup button:hover {
+  opacity: 0.9;
+}
+
+.back-login {
+  background: transparent;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+  padding: 7px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.back-login:hover {
+  background: #2563eb;
+  color: white;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTalkAI | Speaking Practice</title>
+  <link rel="stylesheet" href="css/record.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h2>SmartTalkAI - Speaking Practice</h2>
+    <button class="back-btn" onclick="window.location.href='profile.html'">← Back to Profile</button>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="record-container">
+    <!-- 💬 Daily Speaking Challenge -->
+    <div id="dailyChallenge" class="challenge-box">
+       Loading today's challenge...
+    </div>
+
+    <section class="recorder-section">
+      <h3> Record Your Speaking Practice</h3>
+      <!-- put this near the recorder controls (e.g. below the Stop button) -->
+<div style="margin-top:10px; display:flex; gap:10px; align-items:center;">
+  <button id="nextQuestionBtn">Next question</button>
+  <div id="listeningIndicator" style="display:none;font-weight:600;color:#0b74ff;">Listening…</div>
+</div>
+
+
+      <!-- Practice mode selection -->
+      <div class="mode-select">
+        <label for="practiceType">Select Practice Mode:</label>
+        <select id="practiceType">
+          <option value="interview"> Interview Practice</option>
+          <option value="ielts"> IELTS Speaking</option>
+          <option value="daily"> Daily Conversation</option>
+          <option value="presentation"> Presentation Practice</option>
+        </select>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <button id="startAudio"> Start Audio</button>
+        <button id="startVideo"> Start Video</button>
+        <button id="stopRecording" disabled> Stop</button>
+      </div>
+
+      <!-- Timer -->
+      <p id="timerDisplay">Duration: 00:00</p>
+
+      <!-- Preview Area -->
+      <div class="preview">
+        <video id="preview" autoplay muted></video>
+        <audio id="audioPlayback" controls></audio>
+      </div>
+
+      <!-- Feedback Box -->
+      <div class="feedback-box" id="feedbackBox">
+        <h4> AI Evaluation Feedback</h4>
+        <p id="feedbackText">Your feedback will appear here after recording...</p>
+        <div id="toneAnalysis" class="tone-box"></div>
+      </div>
+
+      <!-- Transcript Section -->
+      <div class="transcript-box" id="transcriptBox">
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <label>Overall Speaking Progress</label>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p id="practiceCounter">Total Practice Sessions: 0</p>
+      </div>
+
+      <!-- Buttons at Bottom -->
+      <div class="bottom-buttons">
+        <button class="history-btn" onclick="window.location.href='profile.html'"> View Feedback History</button>
+        <button class="download-btn" id="downloadReport"> Download My Report</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/record.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartTalkAI - AI Speaking Practice</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for background and font application */
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            /* Applying a vibrant, deep purple background to match the new image */
+            background-color: #401b5a; /* Deep purple matching the illustration's frame */
+            background-image: linear-gradient(135deg, #532c74 0%, #401b5a 100%);
+        }
+        
+        /* Smooth fade for the quote box */
+        .quote-transition {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Ensure the main content takes up remaining vertical space */
+        .content {
+            padding-top: 80px; /* Offset for fixed navbar */
+        }
+        
+        /* Custom hero image shadow and hover effect */
+        .hero-image-container img {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for contrast */
+        }
+        .hero-image-container img:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="text-gray-900 flex flex-col">
+
+    <!-- Navbar: Glassmorphism Effect -->
+    <nav class="fixed top-0 left-0 w-full z-10 bg-white/10 backdrop-blur-lg shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-8 w-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/10350/10350969.png" alt="mic logo" />
+                    <span class="ml-3 text-xl font-extrabold text-white tracking-tight">SmartTalk<span class="text-pink-300">AI</span></span>
+                </div>
+
+                <!-- Menu Links (Retaining original hrefs) -->
+                <div class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="products.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">Products</a>
+                    <a href="programs.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">Programs</a>
+                    <a href="business.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">For Business</a>
+                    <a href="schools.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">For Schools</a>
+                    <a href="blog.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">Blog</a>
+                    <a href="about.html" class="text-white hover:text-pink-300 px-3 py-2 rounded-md text-sm font-medium transition duration-150">About Us</a>
+                </div>
+
+                <!-- Auth Buttons (Retaining original onclick hrefs) -->
+                <div class="flex items-center space-x-3">
+                    <button 
+                        onclick="window.location.href='login.html'"
+                        class="px-4 py-2 text-sm font-semibold text-white bg-transparent border border-white rounded-full hover:bg-white hover:text-purple-700 transition duration-300 shadow-lg"
+                    >
+                        Login
+                    </button>
+                    <button 
+                        onclick="window.location.href='signup.html'"
+                        class="px-4 py-2 text-sm font-semibold text-purple-700 bg-white rounded-full hover:bg-purple-100 transition duration-300 shadow-lg"
+                    >
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center content p-6">
+        <div class="max-w-6xl mx-auto w-full">
+            <!-- Hero Section -->
+            <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12 text-center lg:text-left">
+                
+                <!-- Hero Text Content -->
+                <div class="lg:w-1/2 max-w-lg">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
+                        Master English <br class="hidden sm:inline"> with <span class="text-pink-300 drop-shadow-lg">AI Confidence</span>
+                    </h1>
+                    <p class="text-xl text-pink-100 mb-8 font-medium">
+                        The ultimate platform for realistic speaking practice. Prepare for IELTS, job interviews, or just everyday conversations.
+                    </p>
+                    
+                </div>
+
+                <!-- Hero Image & Card -->
+                <div class="lg:w-1/2 flex justify-center hero-image-container">
+                    <div class="bg-white/10 p-6 rounded-3xl backdrop-blur-md shadow-2xl border-4 border-pink-300/30">
+                        <!-- Image uploaded by user -->
+                        <img 
+                            src="smarttalk-ai-new.png" 
+                            width="350" 
+                            height="350"
+                            alt="Three students confidently practicing English speaking skills with AI feedback on a laptop." 
+                            class="rounded-2xl" 
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inspirational Quote Box -->
+            <div id="quoteBox" class="quote-transition mt-16 mx-auto max-w-2xl text-center text-2xl font-semibold text-pink-200 p-4 rounded-xl border-2 border-pink-200/50 bg-white/10 shadow-xl">
+                "Speak with confidence, not with fear."
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript for Quote Rotation -->
+    <script>
+        const quotes = [
+            "\"Speak with confidence, not with fear.\"",
+            "\"The more you practice, the more fluent you become.\"",
+            "\"Every word you speak takes you closer to mastery.\"",
+            "\"Consistency is the key to confidence.\"",
+            "\"Your voice is your power — use it wisely.\"",
+            "\"Don't wait for the perfect moment, take the moment and make it perfect.\""
+        ];
+        let index = 0;
+        const quoteBox = document.getElementById("quoteBox");
+        
+        // Function to update the quote with a fade effect
+        function updateQuote() {
+            index = (index + 1) % quotes.length;
+            quoteBox.style.opacity = 0; // Start fade out
+            
+            setTimeout(() => {
+                quoteBox.textContent = quotes[index];
+                quoteBox.style.opacity = 1; // Fade in
+            }, 500); // Duration matches the CSS transition
+        }
+
+        // Start the interval after 4 seconds, and repeat every 4 seconds
+        setInterval(updateQuote, 4000);
+    </script>
+</body>
+</html>

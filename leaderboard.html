@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartTalkAI — Ultimate Leaderboard</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#2563eb; --light:#eef2ff; --muted:#64748b; --glass:rgba(255,255,255,0.85);
+      --card-shadow: 0 8px 30px rgba(16,24,40,0.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#dbeafe,#ede9fe);
+      color:#0f172a;
+    }
+    /* NAV */
+    .nav{
+      position:fixed;left:0;right:0;top:0;height:72px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 28px;background:var(--glass);backdrop-filter:blur(6px);z-index:30;box-shadow:0 2px 8px rgba(2,6,23,0.04)
+    }
+    .nav .brand{color:var(--blue);font-weight:700;font-size:20px}
+    .nav .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--blue);color:white;padding:8px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    .ghost{background:transparent;border:1px solid rgba(37,99,235,0.12);color:var(--blue);padding:6px 10px;border-radius:10px}
+
+    /* Container */
+    .wrap{max-width:1200px;margin:100px auto;padding:18px}
+
+    /* Top summary */
+    .top-summary{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-bottom:22px}
+    .hero-left{background:white;border-radius:14px;padding:18px;flex:1;box-shadow:var(--card-shadow)}
+    .hero-right{width:360px;background:linear-gradient(180deg,#ffffff,#f1f5ff);border-radius:14px;padding:16px;box-shadow:var(--card-shadow)}
+    .hero-left h1{margin:0;color:var(--blue);font-size:20px}
+    .stat-row{display:flex;gap:12px;margin-top:14px}
+    .stat{flex:1;background:#f8fafc;padding:12px;border-radius:10px;text-align:center}
+    .stat .n{font-weight:700;font-size:18px;color:#0f172a}
+    .progress-line{height:10px;background:#eef2ff;border-radius:20px;overflow:hidden}
+    .progress-line > div{height:10px;background:linear-gradient(90deg,#60a5fa,#2563eb);border-radius:20px}
+
+    /* Gamified cards */
+    .cards{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+    .card{background:white;border-radius:14px;padding:12px;min-width:160px;flex:1;box-shadow:var(--card-shadow);text-align:center}
+    .card h4{margin:6px 0;color:var(--blue)}
+    .xp{font-size:20px;font-weight:700}
+
+    /* Tabs / filters */
+    .row{display:flex;justify-content:space-between;align-items:center;margin:18px 0;gap:12px}
+    .tabs{display:flex;gap:10px}
+    .tab{padding:8px 14px;border-radius:999px;background:#e8f2ff;color:var(--blue);cursor:pointer}
+    .tab.active{background:var(--blue);color:white;box-shadow:0 6px 18px rgba(37,99,235,0.14)}
+    .filters{display:flex;gap:10px;align-items:center}
+
+    /* content area: left = leaderboard/cards, right = charts + ava */
+    .content{display:grid;grid-template-columns:1fr 360px;gap:20px}
+
+    /* leaderboard section */
+    .leaderboard-area{background:white;border-radius:14px;padding:16px;box-shadow:var(--card-shadow)}
+    .controls-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .view-toggle{display:flex;gap:8px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* table view */
+    table{width:100%;border-collapse:collapse}
+    thead th{text-align:left;padding:10px 12px;color:var(--blue);border-bottom:2px solid #eef2ff}
+    tbody td{padding:12px;border-bottom:1px solid #f3f6ff}
+    .avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;margin-right:10px;vertical-align:middle}
+
+    /* cards view for leaderboard */
+    .lb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .player-card{background:#f8fbff;border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center}
+    .player-card .left{display:flex;gap:12px;align-items:center}
+    .rank-badge{font-weight:700;color:var(--blue);width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,#fff,#eaf3ff);display:flex;align-items:center;justify-content:center}
+
+    /* right column: charts & ava */
+    .right-panel{display:flex;flex-direction:column;gap:12px}
+    .panel{background:white;border-radius:12px;padding:12px;box-shadow:var(--card-shadow)}
+    .mini-title{color:var(--blue);font-weight:700;margin:0 0 8px 0}
+
+    /* chart sizes */
+    canvas{max-width:100%;height:220px !important}
+
+    /* avatars + badges */
+    .badges-row{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:#fff7ed;padding:8px 10px;border-radius:10px;font-weight:600;color:#b45309}
+
+    /* Ava panel */
+    .ava{display:flex;gap:12px;align-items:center}
+    .ava img{width:64px;height:64px;border-radius:50%;border:3px solid var(--blue)}
+    .ava p{margin:0;color:#334155}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .content{grid-template-columns:1fr}
+      .hero-right{order:2}
+      .cards{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="brand">SmartTalkAI</div>
+    <div class="controls">
+      <button class="ghost" onclick="window.location.href='profile.html'">← Back</button>
+      <button class="btn" id="claimBtn">Claim Reward</button>
+    </div>
+  </div>
+
+  <!-- Page wrapper -->
+  <div class="wrap">
+    <!-- Top summary -->
+    <div class="top-summary">
+      <div class="hero-left">
+        <h1> Weekly Summary — Paulo</h1>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <div>
+            <div class="small">Current Rank</div>
+            <div style="font-size:26px;font-weight:700;color:var(--blue)">#3</div>
+          </div>
+          <div style="width:1px;height:42px;background:#eef2ff;margin:0 12px"></div>
+          <div>
+            <div class="small">Confidence</div>
+            <div style="font-size:22px;font-weight:700">89%</div>
+          </div>
+          <div style="width:1px;height:42px;background:#eef2ff;margin:0 12px"></div>
+          <div>
+            <div class="small">Streak</div>
+            <div style="font-size:22px;font-weight:700">5 days </div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat">
+            <div class="small">XP</div>
+            <div class="n xp">1,220</div>
+          </div>
+          <div class="stat">
+            <div class="small">Sessions this week</div>
+            <div class="n">7</div>
+          </div>
+          <div class="stat">
+            <div class="small">Best Score</div>
+            <div class="n">95%</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="small">Progress to next level</div>
+          <div class="progress-line" style="margin-top:8px"><div style="width:68%"></div></div>
+        </div>
+
+        <div class="cards" style="margin-top:12px">
+          <div class="card">
+            <div style="font-size:12px;color:var(--muted)">Level</div>
+            <div class="xp">Level 4</div>
+          </div>
+          <div class="card">
+            <div style="font-size:12px;color:var(--muted)">Badges</div>
+            <div style="margin-top:6px" class="badges-row">
+              <div class="badge">Consistency</div>
+              <div class="badge">Fluency</div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="font-size:12px;color:var(--muted)">Next Goal</div>
+            <div style="margin-top:6px;font-weight:700">Reach #1 this week</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700;color:var(--blue)">Motivation</div>
+          <div style="font-size:13px;color:var(--muted)">Ava says</div>
+        </div>
+        <p style="margin-top:12px;color:#334155">“Great momentum, Paulo — 10 minutes daily practice will secure your spot. Try the Daily Challenge!”</p>
+        <div style="margin-top:14px">
+          <button class="ghost" id="dailyChallengeBtn">Show Today's Challenge</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs + Filters -->
+    <div class="row">
+      <div class="tabs">
+        <div class="tab active" id="tabGlobal"> Global</div>
+        <div class="tab" id="tabLocal"> My Institute</div>
+      </div>
+
+      <div class="filters">
+        <select id="timeFilter" style="padding:8px;border-radius:10px;border:1px solid #e6eefb">
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+          <option value="all">All Time</option>
+        </select>
+
+        <select id="skillFilter" style="padding:8px;border-radius:10px;border:1px solid #e6eefb">
+          <option value="all">All Skills</option>
+          <option value="fluency">Fluency</option>
+          <option value="pronunciation">Pronunciation</option>
+          <option value="bodylang">Body Language</option>
+        </select>
+
+        <div class="view-toggle" title="Toggle view">
+          <button class="ghost" id="tableViewBtn">Table</button>
+          <button class="ghost" id="cardsViewBtn">Cards</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <!-- LEFT: leaderboards -->
+      <div>
+        <div class="leaderboard-area">
+          <div class="controls-row">
+            <div style="font-weight:700;color:var(--blue)">Leaderboard</div>
+            <div class="small">Showing: <span id="currentModeLabel">Global — This Week</span></div>
+          </div>
+
+          <!-- Table view -->
+          <div id="tableView">
+            <table role="table" aria-label="leaderboard table">
+              <thead>
+                <tr><th>Rank</th><th>User</th><th>Confidence</th><th>Sessions</th><th>Badge</th></tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- Cards view -->
+          <div id="cardsView" style="display:none;margin-top:12px">
+            <div class="lb-cards" id="cardsBody"></div>
+          </div>
+        </div>
+
+        <!-- Achievements + CTA -->
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <div style="flex:1" class="leaderboard-area">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700;color:var(--blue)">Achievements</div>
+              <div class="small">Earned</div>
+            </div>
+            <div style="margin-top:10px" class="badges-row">
+              <div class="badge">Consistency</div>
+              <div class="badge">Fluent Star</div>
+              <div class="badge">Conversation Pro</div>
+            </div>
+            <p class="small" style="margin-top:10px;color:var(--muted)">Keep practicing to unlock Advanced Pronunciation badge.</p>
+          </div>
+
+          <div style="width:260px" class="leaderboard-area">
+            <div style="font-weight:700;color:var(--blue)">Weekly Challenge</div>
+            <p id="weeklyChallenge" style="margin-top:8px;color:#334155">Describe your dream job in 60 seconds.</p>
+            <div style="margin-top:12px">
+              <button class="btn" id="startPractice">Start Practice</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: charts + Ava -->
+      <div class="right-panel">
+        <div class="panel">
+          <div class="mini-title"> Confidence Trend</div>
+          <canvas id="confChart"></canvas>
+        </div>
+
+        <div class="panel">
+          <div class="mini-title">Sessions / Week</div>
+          <canvas id="sessionsChart"></canvas>
+        </div>
+
+        <div class="panel">
+          <div class="ava">
+            <img src="https://api.multiavatar.com/Ava.svg" alt="Ava">
+            <div>
+              <div style="font-weight:700;color:var(--blue)">Ava</div>
+              <p style="margin:6px 0;color:#334155">Tip: Use pauses and connectors. Try today's micro-challenge.</p>
+              <div style="margin-top:8px">
+                <button class="ghost" id="avaTalk">Talk</button>
+                <button class="ghost" id="avaChat">Chat</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightweight toast -->
+  <div id="toast" style="position:fixed;right:18px;bottom:18px;background:#0f172a;color:white;padding:10px 14px;border-radius:10px;display:none;box-shadow:0 6px 24px rgba(15,23,42,0.16);"></div>
+
+<script>
+/* -------------------------
+   Simulated data (global & local)
+   ------------------------- */
+const globalData = [
+  {rank:1, name:"Priya", avatar:"https://api.multiavatar.com/priya.svg", confidence:95, sessions:20, badge:"Fluent Star", xp:1420},
+  {rank:2, name:"Rahul", avatar:"https://api.multiavatar.com/rahul.svg", confidence:91, sessions:18, badge:"Silver Orator", xp:1310},
+  {rank:3, name:"Paulo", avatar:"https://api.multiavatar.com/paulo.svg", confidence:89, sessions:17, badge:"Confident Speaker", xp:1220},
+  {rank:4, name:"Ananya", avatar:"https://api.multiavatar.com/ananya.svg", confidence:85, sessions:15, badge:"Steady Speaker", xp:1100},
+  {rank:5, name:"Ravi", avatar:"https://api.multiavatar.com/ravi.svg", confidence:80, sessions:13, badge:"Consistent Learner", xp:980}
+];
+
+const localData = [
+  {rank:1, name:"Neha", avatar:"https://api.multiavatar.com/neha.svg", confidence:93, sessions:19, badge:"Campus Star", xp:1350},
+  {rank:2, name:"Paulo", avatar:"https://api.multiavatar.com/paulo.svg", confidence:90, sessions:18, badge:"Fluent Voice", xp:1280},
+  {rank:3, name:"Arjun", avatar:"https://api.multiavatar.com/arjun.svg", confidence:85, sessions:16, badge:"Dedicated", xp:1120},
+  {rank:4, name:"Sana", avatar:"https://api.multiavatar.com/sana.svg", confidence:82, sessions:15, badge:"Improving", xp:1080},
+  {rank:5, name:"Vivek", avatar:"https://api.multiavatar.com/vivek.svg", confidence:78, sessions:13, badge:"Growing", xp:980}
+];
+
+/* -------------------------
+   UI elements
+   ------------------------- */
+const tabGlobal = document.getElementById('tabGlobal');
+const tabLocal = document.getElementById('tabLocal');
+const tableBody = document.getElementById('tableBody');
+const cardsBody = document.getElementById('cardsBody');
+const currentModeLabel = document.getElementById('currentModeLabel');
+const timeFilter = document.getElementById('timeFilter');
+const skillFilter = document.getElementById('skillFilter');
+const tableView = document.getElementById('tableView');
+const cardsView = document.getElementById('cardsView');
+const tableViewBtn = document.getElementById('tableViewBtn');
+const cardsViewBtn = document.getElementById('cardsViewBtn');
+const confChartEl = document.getElementById('confChart');
+const sessionsChartEl = document.getElementById('sessionsChart');
+const toast = document.getElementById('toast');
+
+/* -------------------------
+   Helpers
+   ------------------------- */
+function showToast(txt, ms=2000){
+  toast.textContent = txt; toast.style.display='block';
+  setTimeout(()=>toast.style.display='none', ms);
+}
+
+/* -------------------------
+   Render leaderboard (table & cards)
+   ------------------------- */
+let currentData = globalData;
+
+function renderTable(data){
+  tableBody.innerHTML = "";
+  data.forEach(d=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:700;color:${d.rank<=3? 'var(--blue)':'#111'}">${d.rank<=3? (["🥇","🥈","🥉"][d.rank-1] || d.rank) : d.rank}</td>
+      <td style="display:flex;align-items:center">
+        <img src="${d.avatar}" alt="" class="avatar"/>
+        <div><div style="font-weight:700">${d.name}</div><div style="font-size:12px;color:var(--muted)">XP ${d.xp}</div></div>
+      </td>
+      <td>${d.confidence}%</td>
+      <td>${d.sessions}</td>
+      <td>${d.badge}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
+}
+
+function renderCards(data){
+  cardsBody.innerHTML = "";
+  data.forEach(d=>{
+    const card = document.createElement('div');
+    card.className = 'player-card';
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="rank-badge">${d.rank}</div>
+        <img src="${d.avatar}" alt="" style="width:54px;height:54px;border-radius:10px;object-fit:cover"/>
+      </div>
+      <div style="flex:1">
+        <div style="font-weight:700">${d.name}</div>
+        <div style="font-size:13px;color:var(--muted)">${d.badge} • ${d.sessions} sessions</div>
+        <div style="margin-top:8px" class="progress-line"><div style="width:${d.confidence}%"></div></div>
+      </div>
+    `;
+    cardsBody.appendChild(card);
+  });
+}
+
+/* -------------------------
+   Tab switching & filtering
+   ------------------------- */
+function setMode(mode){
+  if(mode==='global'){
+    currentData = globalData;
+    tabGlobal.classList.add('active'); tabLocal.classList.remove('active');
+    currentModeLabel.textContent = 'Global — ' + (timeFilter.value==='week'?'This Week': (timeFilter.value==='month'?'This Month':'All Time'));
+  } else {
+    currentData = localData;
+    tabLocal.classList.add('active'); tabGlobal.classList.remove('active');
+    currentModeLabel.textContent = 'My Institute — ' + (timeFilter.value==='week'?'This Week': (timeFilter.value==='month'?'This Month':'All Time'));
+  }
+  refreshViews();
+}
+function refreshViews(){
+  // (filters are stubbed — for demo we simply show same dataset)
+  renderTable(currentData);
+  renderCards(currentData);
+}
+
+/* -------------------------
+   Chart rendering (Chart.js)
+   ------------------------- */
+let confChart, sessionsChart;
+function drawCharts(){
+  // Confidence trend (simulate last 7 days)
+  const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const conf = [78,82,85,87,89,91,89]; // sample
+  const sessions = [1,1,2,1,1,1,0];
+
+  if(confChart) confChart.destroy();
+  confChart = new Chart(confChartEl.getContext('2d'), {
+    type:'line',
+    data:{labels, datasets:[{label:'Confidence (%)',data:conf,fill:true,tension:0.3,backgroundColor:'rgba(37,99,235,0.12)',borderColor:'#2563eb',pointRadius:3}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}}}
+  });
+
+  if(sessionsChart) sessionsChart.destroy();
+  sessionsChart = new Chart(sessionsChartEl.getContext('2d'), {
+    type:'bar',
+    data:{labels, datasets:[{label:'Sessions',data:sessions,backgroundColor:'#60a5fa'}]},
+    options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,stepSize:1}}}
+  });
+}
+
+/* -------------------------
+   UI wiring
+   ------------------------- */
+tabGlobal.onclick = ()=> setMode('global');
+tabLocal.onclick = ()=> setMode('local');
+
+timeFilter.onchange = ()=> setMode(tabGlobal.classList.contains('active') ? 'global' : 'local');
+skillFilter.onchange = ()=> showToast('Filter applied: '+skillFilter.value,1200);
+
+tableViewBtn.onclick = ()=>{ tableView.style.display='block'; cardsView.style.display='none'; };
+cardsViewBtn.onclick = ()=>{ tableView.style.display='none'; cardsView.style.display='block'; };
+
+document.getElementById('dailyChallengeBtn').onclick = ()=>{
+  showToast(" Today's challenge: Describe a book you loved in 60s");
+};
+document.getElementById('startPractice').onclick = ()=> {
+  showToast('Opening practice module…');
+  window.location.href = 'record.html';
+};
+
+document.getElementById('claimBtn').onclick = ()=> showToast('Reward claimed! +50 XP 🎉');
+
+document.getElementById('avaTalk').onclick = ()=>{
+  // Ava voice demo (web speech)
+  const msg = new SpeechSynthesisUtterance("Hi Paulo, great work this week. Keep your pace steady and practise daily for 10 minutes.");
+  msg.rate = 1.0; msg.pitch = 1.1;
+  speechSynthesis.speak(msg);
+  showToast('Ava is speaking…');
+};
+document.getElementById('avaChat').onclick = ()=>{
+  const answer = prompt("Chat with Ava (type message):","How to improve filler words?");
+  if(answer) showToast("Ava: Try pausing & practicing slowly.");
+};
+
+/* -------------------------
+   Initial load
+   ------------------------- */
+setMode('global');
+drawCharts();
+
+/* Render table/cards initially */
+refreshViews();
+
+/* Responsive: show table by default */
+tableView.style.display='block';
+cardsView.style.display='none';
+
+</script>
+</body>
+</html>
+
+

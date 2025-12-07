@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTalkAI | Products</title>
+  <style>
+    body {
+      background: rgb(128, 128, 255);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+    .product-card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 650px;
+      transition: 0.3s ease;
+    }
+    .product-card:hover {
+      background:rgb(102, 102, 255);
+      transform: scale(1.03);
+    }
+    .product-card h3 {
+      margin-bottom: 10px;
+    }
+    .product-card button {
+      background: white;
+      color: #2563eb;
+      border: none;
+      border-radius: 25px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .product-card button:hover {
+      background: #2563eb;
+      color: white;
+    }
+    button.back-btn {
+      margin-top: 40px;
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 8px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.back-btn:hover {
+      background: white;
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <h1> SmartTalkAI Products</h1>
+  <p>SmartTalkAI offers cutting-edge AI tools to boost your English speaking skills with confidence and accuracy.</p>
+
+  <div class="product-card">
+    <h3>AI Speaking Trainer</h3>
+    <p>Engage in realistic speaking sessions with instant AI feedback on tone, pronunciation, and energy.</p>
+    <button onclick="window.location.href='record.html'">Try Speaking Trainer</button>
+  </div>
+
+  <div class="product-card">
+    <h3> AI Grammar Analyzer</h3>
+    <p>Automatically detects grammar and vocabulary issues in your speech and offers personalized suggestions.</p>
+    <button onclick="window.location.href='profile.html'">Try Grammar Analyzer</button>
+  </div>
+
+  <div class="product-card">
+    <h3>Progress Dashboard</h3>
+    <p>Track your growth with visual progress charts, badges, and AI-evaluated performance metrics.</p>
+    <button onclick="window.location.href='profile.html'">View My Dashboard</button>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+</body>
+</html>
