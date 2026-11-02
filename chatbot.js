@@ -1,7 +1,5 @@
 // Gemini API Configuration
 // !!! IMPORTANT: Insert your actual API key here for the chatbot to function.
-const apiKey = "AIzaSyD3eN6pPYdXkgvZOlb_zec20KC_VcVHntU"; 
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
 // System Instruction to guide the AI's persona and tone
 const systemPrompt = "You are SmartTalk AI, a friendly, supportive, and knowledgeable chatbot. Your primary goal is to offer helpful suggestions and information using short, simple, and encouraging vocabulary. Keep your responses concise and conversational.";
@@ -75,40 +73,9 @@ function appendMessage(text, sender) {
 
 // --- Core Gemini Logic ---
 
-/**
- * Sends a request to the Gemini API with exponential backoff.
- * @param {object} payload - The API request payload.
- * @param {string} failMessage - Message to display on failure.
- * @returns {Promise<string>} - The generated text response.
- */
-async function fetchGemini(payload, failMessage) {
-    const maxRetries = 3;
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                return result.candidates?.[0]?.content?.parts?.[0]?.text || "Hmm, I didn't get a clear response. Can you rephrase that?";
-            } else if (response.status === 429 && attempt < maxRetries - 1) {
-                const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
-                await new Promise(resolve => setTimeout(resolve, delay));
-                continue;
-            } else {
-                const errorData = await response.json();
-                console.error('API Error:', errorData);
-                return `${failMessage} (Code: ${response.status})`;
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-            return "There was a network error. Check your connection.";
-        }
-    }
-    return failMessage;
+// AI access stays disabled until requests use a protected server-side endpoint.
+async function fetchGemini(_payload, _failMessage) {
+    return "AI chat is unavailable until a protected server-side endpoint is configured.";
 }
 
 // --- Main Chat Functionality ---
