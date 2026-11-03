@@ -1,5 +1,11 @@
 # ai-speaking-tutor- — Fork Overview
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=222)
+
+![SmartTalk speaking-practice product illustration](smarttalk-ai-new.png)
+
 This repository is a GitHub fork of [Tanishams/ai-speaking-tutor-](https://github.com/Tanishams/ai-speaking-tutor-). Keep the upstream attribution and license terms when redistributing or documenting inherited code. This README describes the copy under `Surabin123`; it does not claim authorship of the upstream implementation.
 
 ## Current contents
@@ -8,7 +14,7 @@ The repository contains a browser-based speaking-practice interface made from HT
 
 ## Security notice
 
-The public browser JavaScript contained a provider credential; it has been removed from this branch and AI requests are disabled here. Treat the old credential as exposed, revoke it with the provider, and review usage. Do not put a replacement secret in browser code; AI requests need a server-side proxy. The related personal repository had the same class of issue.
+The browser JavaScript contained a provider credential; it has been removed from this branch and AI requests are disabled here. Treat the old credential as exposed, revoke it with the provider, and review usage. Do not put a replacement secret in browser code; AI requests need a server-side proxy.
 
 ## Run
 
